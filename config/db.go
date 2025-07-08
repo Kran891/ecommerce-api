@@ -1,0 +1,43 @@
+package config
+
+import (
+	"ecommerce-api/logger"
+	"ecommerce-api/models"
+	"fmt"
+	"os"
+
+	"github.com/joho/godotenv"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
+)
+
+var DB *gorm.DB
+
+func ConncectDB() {
+	godotenv.Load()
+	dsn := fmt.Sprintf(
+		"host=%s user=%s password=%s dbname=%s port=%s sslmode=%s",
+		os.Getenv("DB_HOST"),
+		os.Getenv("DB_USER"),
+		os.Getenv("DB_PASSWORD"),
+		os.Getenv("DB_NAME"),
+		os.Getenv("DB_PORT"),
+		os.Getenv("SSL_MODE"),
+	)
+
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	if err != nil {
+		logger.Error("❌❌❌ failed to connect database", err)
+		// Log the error and panic to stop the application
+		panic("❌❌❌ failed to connect database")
+
+	}
+	db.AutoMigrate(&models.User{})
+	db.AutoMigrate(&models.Category{})
+	db.AutoMigrate(&models.Product{})
+	db.AutoMigrate(models.Cart{})
+	DB = db
+	// Log the successful connection
+	logger.Info("✅✅✅ Database connection established successfully")
+
+}
