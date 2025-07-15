@@ -11,6 +11,7 @@ type UserRepository interface {
 	BaseRepository[models.User]
 	FindByEmail(email string) (user *models.User, err error)
 	CartItems(id uuid.UUID) (user *models.User, err error)
+	OrderItems(id uuid.UUID) (user *models.User, err error)
 }
 
 type userRepository struct {
