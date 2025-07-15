@@ -27,6 +27,10 @@ func (r *userRepository) CartItems(id uuid.UUID) (user *models.User, err error) 
 	return
 
 }
+func (r *userRepository) OrderItems(id uuid.UUID) (user *models.User, err error) {
+	err = config.DB.Preload("Orders").Preload("Orders.OrderItems").First(&user, "id = ?", id).Error
+
+}
 func NewUserRepository() UserRepository {
 	return &userRepository{}
 }
