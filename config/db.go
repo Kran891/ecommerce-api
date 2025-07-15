@@ -36,6 +36,8 @@ func ConncectDB() {
 	db.AutoMigrate(&models.Category{})
 	db.AutoMigrate(&models.Product{})
 	db.AutoMigrate(models.Cart{})
+	db.AutoMigrate(&models.Order{})
+	db.AutoMigrate(&models.OrderItem{})
 	DB = db
 	// Log the successful connection
 	logger.Info("✅✅✅ Database connection established successfully")
