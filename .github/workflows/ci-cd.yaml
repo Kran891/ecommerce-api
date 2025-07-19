@@ -22,6 +22,10 @@ jobs:
 
       - name: Install dependencies
         run: go mod download
+      
+      - name: Test DB Connection
+        run: |
+          PGPASSWORD=${{ secrets.DB_PASSWORD }} psql "host=${{ secrets.DB_HOST }} port=${{ secrets.DB_PORT }} dbname=${{ secrets.DB_NAME }} user=${{ secrets.DB_USER }} sslmode=require" -c '\conninfo'
 
       - name: Run tests
         run: go test ./...
