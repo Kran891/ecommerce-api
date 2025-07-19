@@ -17,7 +17,7 @@ func ConncectDB() {
 	godotenv.Load()
 	dsn := fmt.Sprintf(
 		"host=%s user=%s password=%s dbname=%s port=%s sslmode=%s",
-		"db.mhzjnslrwbepyuiebvoi.supabase.co","postgres","3MdDnbdiHbCkOIwa","postgres","5432","require"
+		"db.mhzjnslrwbepyuiebvoi.supabase.co","postgres","3MdDnbdiHbCkOIwa","postgres","5432","require",
 	)
     logger.Info(os.Getenv("DB_HOST"))
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
