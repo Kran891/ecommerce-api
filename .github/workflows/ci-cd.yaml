@@ -37,10 +37,6 @@ jobs:
       - name: Install dependencies
         run: go mod download
   
-      - name: Test DB Connection
-        run: |
-            PGPASSWORD=3MdDnbdiHbCkOIwa psql "host=db.mhzjnslrwbepyuiebvoi.supabase.co port=5432 dbname=postgres user=postgres sslmode=require" -c '\conninfo'
-  
       - name: Run tests
         run: go test ./...
   
