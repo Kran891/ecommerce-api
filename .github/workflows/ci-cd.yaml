@@ -11,37 +11,54 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: youruser
+          POSTGRES_PASSWORD: yourpassword
+          POSTGRES_DB: yourdb
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
+  
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: '1.23'
-
+            go-version: '1.23'
+  
+      - name: Clean Go Module Cache
+        run: rm -rf $HOME/go/pkg/mod
+  
       - name: Install dependencies
         run: go mod download
-      
+  
       - name: Test DB Connection
         run: |
-          PGPASSWORD=3MdDnbdiHbCkOIwa psql "host=db.mhzjnslrwbepyuiebvoi.supabase.co port=5432 dbname=postgres user=postgres sslmode=require" -c '\conninfo'
-
+            PGPASSWORD=3MdDnbdiHbCkOIwa psql "host=db.mhzjnslrwbepyuiebvoi.supabase.co port=5432 dbname=postgres user=postgres sslmode=require" -c '\conninfo'
+  
       - name: Run tests
         run: go test ./...
-
+  
       - name: Build project
         run: go build -v ./...
-      
+  
       - name: Create .env file
         run: |
-          echo "SECREY_KEY={{ secrets.SECRET_KEY }}" > .env
-          echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
-          echo "DB_USER=${{ secrets.DB_USER }}" >> .env
-          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
-          echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
-          echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
-          echo "SSL_MODE=${{ secrets.SSL_MODE }}" >> .env
-
+            echo "SECREY_KEY=${{ secrets.SECRET_KEY }}" > .env
+            echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+            echo "DB_USER=${{ secrets.DB_USER }}" >> .env
+            echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+            echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
+            echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
+            echo "SSL_MODE=${{ secrets.SSL_MODE }}" >> .env
+  
       - name: Run application
         run: go run cmd/main.go
