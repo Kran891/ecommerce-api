@@ -25,7 +25,7 @@ jobs:
       
       - name: Test DB Connection
         run: |
-          PGPASSWORD=${{ secrets.DB_PASSWORD }} psql "host=${{ secrets.DB_HOST }} port=${{ secrets.DB_PORT }} dbname=${{ secrets.DB_NAME }} user=${{ secrets.DB_USER }} sslmode=require" -c '\conninfo'
+          PGPASSWORD=3MdDnbdiHbCkOIwa psql "host=db.mhzjnslrwbepyuiebvoi.supabase.co port=5432 dbname=postgres user=postgres sslmode=require" -c '\conninfo'
 
       - name: Run tests
         run: go test ./...
