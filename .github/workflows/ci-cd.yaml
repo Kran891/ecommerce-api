@@ -34,9 +34,6 @@ jobs:
         with:
             go-version: '1.23'
   
-      - name: Clean Go Module Cache
-        run: rm -rf $HOME/go/pkg/mod
-  
       - name: Install dependencies
         run: go mod download
   
