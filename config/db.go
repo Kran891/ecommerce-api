@@ -24,7 +24,7 @@ func ConncectDB() {
 		os.Getenv("DB_PORT"),
 		os.Getenv("SSL_MODE"),
 	)
-
+    fmt.Println(os.Getenv("DB_HOST"))
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		logger.Error("❌❌❌ failed to connect database", err)
