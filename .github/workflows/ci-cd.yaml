@@ -53,5 +53,4 @@ jobs:
             echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
             echo "SSL_MODE=${{ secrets.SSL_MODE }}" >> .env
   
-      - name: Run application
-        run: go run cmd/main.go
+      
