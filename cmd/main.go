@@ -5,7 +5,7 @@ import (
 	"ecommerce-api/logger"
 	"ecommerce-api/middleware"
 	"ecommerce-api/routes"
-
+    "os"
 	"github.com/gin-gonic/gin"
 )
 
