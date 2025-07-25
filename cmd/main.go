@@ -26,5 +26,6 @@ func main() {
 	config.ConncectDB()
 	routes.Routes(r)
 	middleware.ProtectedRoutes(r)
-	r.Run(":8080")
+	port := os.Getenv("PORT")
+	r.Run(":"+port)
 }

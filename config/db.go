@@ -20,7 +20,7 @@ func ConncectDB() {
 		"db.mhzjnslrwbepyuiebvoi.supabase.co","postgres","3MdDnbdiHbCkOIwa","postgres","5432","require",
 	)
     logger.Info(os.Getenv("DB_HOST"))
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(os.Getenv("DATABASE_URL")), &gorm.Config{})
 	if err != nil {
 		logger.Error("❌❌❌ failed to connect database", err)
 		// Log the error and panic to stop the application
