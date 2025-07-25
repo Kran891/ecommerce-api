@@ -3,7 +3,6 @@ package config
 import (
 	"ecommerce-api/logger"
 	"ecommerce-api/models"
-	"fmt"
 	"os"
 
 	"github.com/joho/godotenv"
