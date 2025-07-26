@@ -3,6 +3,7 @@ package models
 import "github.com/google/uuid"
 
 type Order struct {
-	UserID  uuid.UUID `json:"userID"`
-	
+	BaseModel
+	UserID     uuid.UUID   `json:"userID"`
+	OrderItems []OrderItem `json:"items" gorm:"foreignKey:OrderID"`
 }
