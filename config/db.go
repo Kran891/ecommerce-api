@@ -14,7 +14,6 @@ var DB *gorm.DB
 
 func ConncectDB() {
 	godotenv.Load()
-    logger.Info(os.Getenv("DB_HOST"))
 	db, err := gorm.Open(postgres.Open(os.Getenv("DATABASE_URL")), &gorm.Config{})
 	if err != nil {
 		logger.Error("❌❌❌ failed to connect database", err)
