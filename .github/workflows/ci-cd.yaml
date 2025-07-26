@@ -94,7 +94,5 @@ jobs:
       - name: Deploy to Railway
         run: railway up --service ecommerce-api --env production --token ${{ secrets.RAILWAY_TOKEN }}
 
-      - name: Deploy to Railway
-        run: railway up
 
       
