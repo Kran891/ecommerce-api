@@ -71,5 +71,7 @@ jobs:
 
       - name: Deploy to Railway
         env:
-         RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-        run: railway up --ci
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          railway link --project d3666e7c-f5b7-4f1e-8ae4-55177513ab5b
+          railway up --service web --environment production --ci
