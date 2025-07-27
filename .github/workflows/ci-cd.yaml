@@ -54,24 +54,15 @@ jobs:
           echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
           echo "SSL_MODE=${{ secrets.SSL_MODE }}" >> .env
 
-  deploy:
+   deploy:
     runs-on: ubuntu-latest
     needs: [build]
+    container: ghcr.io/railwayapp/cli:latest
+    env:
+      SVC_ID: 47c9915b-f9fb-4107-9028-0dbc5dac0710
+      RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+      - run: railway up --service=47c9915b-f9fb-4107-9028-0dbc5dac0710
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      - name: Install Railway CLI
-        run: npm install -g @railway/cli
-
-      - name: Deploy to Railway
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-        run: |
-          RAILWAY_TOKEN=${{ secrets.RAILWAY_TOKEN }} railway link --project d3666e7c-f5b7-4f1e-8ae4-55177513ab5b
-          railway up --service web --environment production --ci
+      
