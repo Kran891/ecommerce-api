@@ -9,5 +9,4 @@ type OrderItem struct {
 	Quantity  int       `json:"quantity" gorm:"not null"`
 	Product   Product
 	Price     float64
-	Order     Order
 }
