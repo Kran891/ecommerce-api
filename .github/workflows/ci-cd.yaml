@@ -64,7 +64,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Set service environment variables
-        run:  railway variables set DATABASE_URL=${{secrets.DATABASE_URL}}
+        run:  railway variables add DATABASE_URL=${{secrets.DATABASE_URL}}
       - run: railway up --service=47c9915b-f9fb-4107-9028-0dbc5dac0710
 
       
