@@ -8,5 +8,6 @@ type OrderItem struct {
 	ProductID uuid.UUID `json:"productId" gorm:"index:idx_order_product,unique;not null"`
 	Quantity  int       `json:"quantity" gorm:"not null"`
 	Product   Product
+	Order     Order
 	Price     float64
 }
